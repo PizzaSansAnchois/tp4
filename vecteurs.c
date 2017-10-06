@@ -13,8 +13,20 @@ struct search_param{
   int ret;
 };
 
+typedef struct search_param structure;
+
 void *search (void *arg){
-  return;
+  structure* params=(structure*)arg;
+  int index=(params->start_index);
+  while(index!=(params->length)){
+    if((params->tab[index])==(params->elt)){
+      params->ret=index;
+      return params;
+    }
+    index++;
+  }
+  params->ret=-1;
+  return params;
 }
 
 int main (int argc, char **argv){
