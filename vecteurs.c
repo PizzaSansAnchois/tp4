@@ -5,6 +5,13 @@
 #include <unistd.h>
 #include <stdlib.h>
 
+struct search_param{
+  char* tab;
+  int length;
+  int start_index;
+  char elt;
+  int ret;
+};
 
 void *search (void *arg){
   return;
