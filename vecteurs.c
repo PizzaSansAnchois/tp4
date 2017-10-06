@@ -6,10 +6,10 @@
 #include <stdlib.h>
 
 struct search_param{
-  char* tab;
+  int* tab;
   int length;
   int start_index;
-  char elt;
+  int elt;
   int ret;
 };
 
@@ -30,7 +30,48 @@ void *search (void *arg){
 }
 
 int main (int argc, char **argv){
+  //(paramètres=elt,fichier,nbthreads)
+  int eltRecherche=atoi(argv[1]);
+  int* tableau=NULL;//creer tableau à partir du deuxième argument
+  int nbThreads=atoi(argv[3]);
 
+  int *tids = malloc (nbThreads*sizeof(pthread_t));
+  //tableau de structures pour passer les arguments
+  structure *paramThreads = malloc (nbThreads*sizeof(structure));
+
+  // Création des structures
+  structure tempStruct;
+
+  //valeurs communes entre threads
+  tempStruct.elt=eltRecherche;
+  tempStruct.ret=-1;
+  tempStruct.tab=tableau;
+  int tailleParThread=sizeof(tableau)/nbThreads;
+  tempStruct.length=tailleParThread;
+
+  //valeurs variables des threads
+  int i;
+  for (i = 0 ; i < nbThreads-1; i++){
+    tempStruct.start_index=tailleParThread*i;
+    paramThreads[i]=tempStruct;
+  }
+  //création de la structure du dernier thread (avec le reste des int)
+  tempStruct.length=tailleParThread+(sizeof(tableau)%nbThreads);
+  tempStruct.start_index=tailleParThread*(nbThreads-1);
+  paramThreads[nbThreads-1]=tempStruct;
+
+  /* Create the threads for search*/
+  for (i = 0 ; i < nbThreads-1; i++){
+    pthread_create (&tids[i], NULL, search, &(paramThreads[i])) ;
+  }
+
+  /* Wait until every thread ended */ 
+  for (i = 0; i < nbThreads; i++){
+    pthread_join (tids[i], NULL) ;
+  }
+  
+  free (tids) ;
+  free (paramThreads);
 
   return EXIT_SUCCESS;
 }
