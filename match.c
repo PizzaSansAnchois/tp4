@@ -33,7 +33,8 @@ int main (int argc, char **argv){
   pthread_t *tids ;
 
   if (argc != 5){
-    fprintf(stderr, "usage : %s team1 team2\n", argv[0]) ;
+    fprintf(stderr, "usage : %s <team1 supporter> <num of time team1 sing>"
+            "\t<team2 supporter> <num of time team2 sing>\n", argv[0]) ;
     exit (-1) ;
   }
 
