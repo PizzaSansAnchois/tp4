@@ -26,17 +26,21 @@ int main (int argc, char **argv){
 
   int team1 ;
   int team2 ;
+  int songTeam1;
+  int songTeam2;
   int i ;
   int nb_threads = 0 ;
   pthread_t *tids ;
 
-  if (argc != 3){
+  if (argc != 5){
     fprintf(stderr, "usage : %s team1 team2\n", argv[0]) ;
     exit (-1) ;
   }
 
-  team1 = atoi (argv[1]) ;
-  team2  = atoi (argv[2]) ;
+  team1 = atoi (argv[1]);
+  songTeam1= atoi(argv[2]);
+  team2  = atoi (argv[3]);
+  songTeam2=atoi(argv[4]);
   nb_threads = team1 + team2; 
   tids = malloc (nb_threads*sizeof(pthread_t)) ;
 
@@ -49,7 +53,7 @@ int main (int argc, char **argv){
     pthread_create (&tids[i], NULL, supporter, "Swing low, sweet chariot") ;
   }  
 
-  /* Wait until every thread ened */ 
+  /* Wait until every thread ended */ 
   for (i = 0; i < nb_threads; i++){
     pthread_join (tids[i], NULL) ;
   }
