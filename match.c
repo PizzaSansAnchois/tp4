@@ -5,7 +5,6 @@
 #include <sys/types.h>
 #include <unistd.h>
 #include <stdlib.h>
-#define NB_SONG 3
 
 struct thread_params{
     char* song;
