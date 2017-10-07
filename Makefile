@@ -33,7 +33,7 @@ CC=gcc
 CFLAGS=-Wall -ggdb -O2
 LDLIBS=-lpthread
 
-all: match vecteurs file_gen
+all: match vecteurs file_gen seq_vector
 
 clean:
-	$(RM) match *.o
+	$(RM) match file_gen vecteurs *.o
