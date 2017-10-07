@@ -13,6 +13,7 @@ struct search_param{
   int ret;
 };
 
+/* TODO: changer le nom (structure est super vague */
 typedef struct search_param structure;
 
 void *search (void *arg){
@@ -29,13 +30,22 @@ void *search (void *arg){
   return params;
 }
 
+void usage(char* program){
+    printf("Usage: %s <element being searched> <file with array>" 
+            " <nb of threads>\n", program);
+    exit(0);
+}
+
 int main (int argc, char **argv){
+    if (argc < 4){
+        usage(argv[0]);
+    }
   //(paramètres=elt,fichier,nbthreads)
   int eltRecherche=atoi(argv[1]);
   int* tableau=NULL;//creer tableau à partir du deuxième argument
   int nbThreads=atoi(argv[3]);
 
-  int *tids = malloc (nbThreads*sizeof(pthread_t));
+  pthread_t *tids = malloc (nbThreads*sizeof(pthread_t));
   //tableau de structures pour passer les arguments
   structure *paramThreads = malloc (nbThreads*sizeof(structure));
 
@@ -51,6 +61,7 @@ int main (int argc, char **argv){
 
   //valeurs variables des threads
   int i;
+  // TODO: ERROR ICI
   for (i = 0 ; i < nbThreads-1; i++){
     tempStruct.start_index=tailleParThread*i;
     paramThreads[i]=tempStruct;
