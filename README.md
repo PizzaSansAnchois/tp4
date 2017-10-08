@@ -34,4 +34,23 @@ secondes, le thread "dort" pendant des  microsecondes. C'est dire que le
 thread laisse le CPU pour un autre thread pendant au moins l'intervalle de
 temps donné dans la fonction.
 
-4. 
+4. Quand les supporters se terminent, ils renvoient leur tid, qui peut être
+récupéré lors du pthread_join.
+En cas d'oubli de la dernière boucle, le main se serait terminé avant que les
+threads aient pu finir leur travail. Avec la boucle, le main attend la fin de
+l'exécution des threads.
+
+5. 
+
+
+6. vim seq_vector.c
+
+7. vim thd_vector.c
+
+8. 
+
+9. Si la valeur est présente dans le programme, l'ordonnancement jouera un rôle
+dans la vitesse d'exécution. En effet, le thread qui cherche dans la partie
+du tableau contenant l'élèment définira la longueur du programme. S'il était
+par exemple exécuté en une seuke fois, le programme pourrait terminé 
+correctement.
