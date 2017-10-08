@@ -30,10 +30,10 @@
 # $^  - toutes les déps
 
 CC=gcc
-CFLAGS=-Wall -ggdb -O2
+CFLAGS=-Wall -ggdb  -O2
 LDLIBS=-lpthread
 
-all: match vecteurs file_gen seq_vector
+all: match vecteurs file_gen seq_vector thd_vector
 
 clean:
-	$(RM) match file_gen vecteurs *.o
+	$(RM) match file_gen vecteurs seq_vector thd_vector *.o
