@@ -156,8 +156,7 @@ int main (int argc, char **argv){
         thread_structs[i].ret = array_elt_index;
         thread_structs[i].start_index = i*tailleParThread;
         thread_structs[i].tab = tableau;
-        thread_structs[i].length = tailleParThread;
-        thread_structs[i].length += i*tailleParThread;
+        thread_structs[i].length = (i + 2)*tailleParThread;
     }
 
     /* Le dernier thread parcourt la longueur de base + le reste
