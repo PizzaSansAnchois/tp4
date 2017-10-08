@@ -37,11 +37,10 @@ typedef struct search_param search_param;
 void* search (void* struct_params){
     search_param* params = (search_param*) struct_params;
     printf("Thread lancé...\n");
-    printf("DBG: tab: %p\nlength: %d\nstart_index: %d\nelt: %d\nret: %d\n",
-            params->tab, params->length, params->start_index,
-            params->elt, params->ret);
+    printf("DBG: length: %d start_index: %d elt: %d\n",
+            params->length, params->start_index, params->elt);
     int index = params->start_index;
-    for (; index <= (params->length); index++){
+    for (; index < (params->length); index++){
         if((params->tab[index]) == (params->elt)){
             params->ret = index;
             return NULL;
@@ -156,14 +155,13 @@ int main (int argc, char **argv){
         thread_structs[i].ret = array_elt_index;
         thread_structs[i].start_index = i*tailleParThread;
         thread_structs[i].tab = tableau;
-        thread_structs[i].length = (i + 2)*tailleParThread;
+        thread_structs[i].length = (i + 1)*tailleParThread;
     }
 
     /* Le dernier thread parcourt la longueur de base + le reste
      * éventuel du tableau
      */
-    thread_structs[nb_threads - 1].length = 
-        tailleParThread + size_tab % nb_threads;
+    thread_structs[nb_threads - 1].length += size_tab % nb_threads;
 
     /* initialisation des différents threads */
     for (int i = 0; i < nb_threads; i++){
