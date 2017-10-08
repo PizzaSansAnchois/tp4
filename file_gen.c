@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define MAX_VAL 50
+#define MAX_VAL 50000
 
 int main(int argc, char** argv){
     unsigned int seed = 0;
