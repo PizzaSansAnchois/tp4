@@ -25,6 +25,9 @@ struct search_param{
     int ret;
 };
 
+/* global flag to tell that search is not over (0) */
+int search_status = 0;
+
 typedef struct search_param search_param;
 
 /* Fonction: search
@@ -42,9 +45,10 @@ void* search (void* struct_params){
     printf("DBG: length: %d start_index: %d elt: %d\n",
             params->length, params->start_index, params->elt);
     int index = params->start_index;
-    for (; index < (params->length); index++){
+    for (; index < (params->length) && !search_status; index++){
         if((params->tab[index]) == (params->elt)){
             params->ret = index;
+            search_status = 1;
             return NULL;
         }
     }
