@@ -1,0 +1,8 @@
+*.txt
+*.swp
+.gdb_history
+file_gen
+match
+seq_vector
+thd_vector
+vecteurs
