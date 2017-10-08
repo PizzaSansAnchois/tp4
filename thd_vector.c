@@ -10,7 +10,7 @@
 
 /* Struct: search_param
  * tab: adresse du tableau d'élément
- * length: longueur du sous tableau à parcourir
+ * length: l'indice de fin du tableau à parcourir
  * start_index: l'indice à partir duquel commencer la recherche
  * elt: l'élément recherché
  * ret: l'index ou a été trouvé l'élément
