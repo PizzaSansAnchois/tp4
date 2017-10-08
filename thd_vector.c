@@ -8,6 +8,8 @@
 
 #define BUFFER_SIZE 20
 
+// TODO: arrêter les autres threads quand on a trouver l'élément
+
 /* Struct: search_param
  * tab: adresse du tableau d'élément
  * length: l'indice de fin du tableau à parcourir
