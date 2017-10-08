@@ -41,7 +41,7 @@ void* search (void* struct_params){
             params->tab, params->length, params->start_index,
             params->elt, params->ret);
     int index = params->start_index;
-    for (; index < (params->length); index++){
+    for (; index <= (params->length); index++){
         if((params->tab[index]) == (params->elt)){
             params->ret = index;
             return NULL;
