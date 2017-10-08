@@ -7,7 +7,7 @@
 
 int main(int argc, char** argv){
     unsigned int seed = 0;
-    unsigned int num_number = 0;
+    unsigned long long num_number = 0;
     if (argc < 2){
         printf("Usage: %s <number of number> <seed>\n", argv[0]);
         exit(0);
@@ -16,7 +16,7 @@ int main(int argc, char** argv){
     }else if (argc == 3){
         seed = atoi(argv[2]);
     }
-    num_number = atoi(argv[1]);
+    num_number = atoll(argv[1]);
 
     srand(seed);
     FILE* fd;
