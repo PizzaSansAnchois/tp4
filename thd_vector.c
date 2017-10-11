@@ -6,9 +6,9 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-#define BUFFER_SIZE 20
+#include <time.h>
 
-// TODO: arrêter les autres threads quand on a trouver l'élément
+#define BUFFER_SIZE 20
 
 /* Struct: search_param
  * tab: adresse du tableau d'élément
@@ -25,8 +25,11 @@ struct search_param{
     int ret;
 };
 
-/* global flag to tell that search is not over (0) */
-int search_status = 0;
+/* global flag to tell that search is not over (0),
+ * volatile tells the compiler that this variable
+ * MUST be checked everytime because it can change 
+ */
+volatile int search_status = 0;
 
 typedef struct search_param search_param;
 
@@ -79,6 +82,7 @@ void usage(char* program){
  * return : un pointeur sur le tableau d'entier récupéré
  */
 void load_vector(char* filename, int** vector, int* size){
+    printf("début de la lecture du fichier...\n");
     FILE* fd = NULL;
     char buf[BUFFER_SIZE];
     int element_count = 0;
@@ -111,6 +115,7 @@ void load_vector(char* filename, int** vector, int* size){
         printf("%d : %d\n", i, input_vector[i]);
     }
     */
+    printf("fin de la lecture...\n");
 }
 
 /* Fonction: print_result
@@ -147,6 +152,9 @@ int main (int argc, char **argv){
     int nb_threads = atoi(argv[3]);
     int tailleParThread = 0;
     int array_elt_index = -1;
+    /* pour les tests de performance */
+    clock_t start_t, end_t;
+
 
     pthread_t threads[nb_threads];
     search_param thread_structs[nb_threads];
@@ -169,6 +177,9 @@ int main (int argc, char **argv){
      */
     thread_structs[nb_threads - 1].length += size_tab % nb_threads;
 
+    /* démarrage de la recherche */
+    start_t = clock();
+
     /* initialisation des différents threads */
     for (int i = 0; i < nb_threads; i++){
         pthread_create(&threads[i], NULL, search, &thread_structs[i]);
@@ -177,6 +188,11 @@ int main (int argc, char **argv){
     for (int i = 0; i < nb_threads; i++){
         pthread_join(threads[i], NULL);
     }
+
+    end_t = clock();
+    printf("Recherche effectuée en: %f secondes\n", 
+            (double) (end_t - start_t) / CLOCKS_PER_SEC);
+
 
     print_result(nb_threads, thread_structs);
 
