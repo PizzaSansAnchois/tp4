@@ -1,12 +1,12 @@
 # README et compte-rendu du tp4
 
 Le programme file_gen.c permet de générer une suite de nombres qui seront
-écrites dans un fichier.
+écrites dans un fichier out.txt.
 
 Utilisation : ./file_gen <number of number> <seed>
 
-Il est possible de choisir le nombre de lignes générées dans le fichiers,
-ainsi que la graine.
+Il est possible de choisir le nombre de nombres générés dans le fichiers,
+ainsi que la graine. Il y a un nombre par ligne.
 Un fichier contenant 100 000 000 lignes est suffisament gros pour tester
 l'efficacité des programmes threadés.
 
@@ -20,14 +20,15 @@ Usage: ./thd_vector <element being searched> <file with array> <nb of threads>
 
 Questions
 1. tids est un tableau qui contient les structures des threads du programme.
-On utilise la fonction malloc pour alloué un tableau de taille suffisante, 
-et pthread_create est utilisée pour initialisé chacun des pthread_t contenus.
+On utilise la fonction malloc pour allouer un tableau de taille suffisante, 
+et pthread_create est utilisée pour initialiser chacun des pthread_t contenus.
 L'espace mémoire alloué à cette variable est libéré au moment du free(tids).
 
 2. pthread_create permet de créer un thread, tant qu'on lui fourni l'adresse
 du pthread_t que l'on souhaite créer, des options de threads, la fonction
-que va exécuté le thread, ainsi que l'argument que l'on passera à cette
-fonction. Les arguments et options sont facultatifs.
+que va exécuter le thread, ainsi que l'argument que l'on passera à cette
+fonction. Les arguments de la fonction à exécuter et les options de
+ptread_create sont facultatifs.
 
 3. usleep est l'équivalent de sleep, sauf qu'au lieu de "dormir" pendant des 
 secondes, le thread "dort" pendant des  microsecondes. C'est dire que le

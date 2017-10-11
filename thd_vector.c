@@ -21,8 +21,8 @@ struct search_param{
     int* tab;
     int length;
     int start_index;
-    int elt;
-    int ret;
+    int elt;//élément recherché
+    int ret;//-1 si l'élément n'est pas trouvé sinon indice de l'élément trouvé
 };
 
 /* global flag to tell that search is not over (0),
@@ -91,6 +91,7 @@ void load_vector(char* filename, int** vector, int* size){
         perror("opening file");
         exit(1);
     }
+    //compter les lignes
     while (fgets(buf, BUFFER_SIZE, fd) != NULL)
         element_count++;
 
@@ -103,6 +104,7 @@ void load_vector(char* filename, int** vector, int* size){
 
     rewind(fd);
 
+    //remplir tableau
     while (fgets(buf, BUFFER_SIZE, fd) != NULL){
         (*vector)[array_iterator] = atoi(buf);
         array_iterator++;
@@ -110,11 +112,6 @@ void load_vector(char* filename, int** vector, int* size){
 
     *size = array_iterator;
 
-    /*
-    for (int i = 0; i < array_iterator; i++){
-        printf("%d : %d\n", i, input_vector[i]);
-    }
-    */
     printf("fin de la lecture...\n");
 }
 
@@ -144,7 +141,7 @@ int main (int argc, char **argv){
     if (argc < 4){
         usage(argv[0]);
     }
-    // (paramètres=elt,fichier,nbthreads)
+    // (paramètres:elt,fichier,nbthreads)
     int eltRecherche = atoi(argv[1]);
     // creer tableau à partir du deuxième argument
     int* tableau = NULL;
@@ -185,6 +182,7 @@ int main (int argc, char **argv){
         pthread_create(&threads[i], NULL, search, &thread_structs[i]);
     }
     
+    /*joint des differents threads*/
     for (int i = 0; i < nb_threads; i++){
         pthread_join(threads[i], NULL);
     }
