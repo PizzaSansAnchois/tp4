@@ -40,17 +40,22 @@ En cas d'oubli de la dernière boucle, le main se serait terminé avant que les
 threads aient pu finir leur travail. Avec la boucle, le main attend la fin de
 l'exécution des threads.
 
-5. 
-
+5. Voir .png fourni
 
 6. vim seq_vector.c
 
 7. vim thd_vector.c
 
-8. 
+8. Entre un CPU à un seul coeur et à deux coeurs, le facteur d'accélération
+serait d'avoir du vrai parallélisme : les threads exécutées sur un seul coeur 
+prendront minimum le temps nécéssaire pour les exécutés séquentiellement;
+mais sur un processeur avec deux coeurs, on pourra réellement avoir du 
+parallélisme, et le temps minimum d'exécution dépendra du thread ayant le
+plus d'éléments à rechercher, dans le meilleur des ordonnancements
+(celui ou chaque thread est executé en parallèle).
 
 9. Si la valeur est présente dans le programme, l'ordonnancement jouera un rôle
 dans la vitesse d'exécution. En effet, le thread qui cherche dans la partie
 du tableau contenant l'élèment définira la longueur du programme. S'il était
-par exemple exécuté en une seuke fois, le programme pourrait terminé 
+par exemple exécuté en une seule fois, le programme pourrait terminé 
 correctement.
