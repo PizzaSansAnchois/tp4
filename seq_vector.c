@@ -67,6 +67,7 @@ void usage(char* program){
  * return : un pointeur sur le tableau d'entier récupéré
  */
 void load_vector(char* filename, int** vector, int* size){
+    printf("début de la lecture du fichier...\n");
     FILE* fd = NULL;
     char buf[BUFFER_SIZE];
     int element_count = 0;
@@ -99,6 +100,7 @@ void load_vector(char* filename, int** vector, int* size){
         printf("%d : %d\n", i, input_vector[i]);
     }
     */
+    printf("fin de la lecture...\n");
 }
 
 /* Fonction: print_result
@@ -128,6 +130,8 @@ int main (int argc, char **argv){
     int nbThreads = 1;
     int tailleParThread = 0;
     int array_elt_index = -1;
+    /* pour les tests de performance */
+    clock_t start_t, end_t;
 
     load_vector(argv[2], &tableau, &size_tab);
 
@@ -141,7 +145,14 @@ int main (int argc, char **argv){
     tempStruct.tab = tableau;
     tempStruct.length = tailleParThread;
 
+    /* démarrage de la recherche */
+    start_t = clock();
+
     search(&tempStruct);
+
+    end_t = clock();
+    printf("Recherche effectuée en: %f secondes\n", 
+            (double) (end_t - start_t) / CLOCKS_PER_SEC);
 
     print_result(&tempStruct);
 
